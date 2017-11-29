@@ -14,8 +14,7 @@ class NewMultilinearMap:
 		return self.mmap.params._lambda
 	#
 	def copy_encoding(self, value):
-		encoded_value = mmap_lib.encoding(value)
-		return encoded_value
+		return mmap_lib.encoding(value)
 	#
 	def sample(self):
 		samp = mmap_lib.encoding()
@@ -25,7 +24,7 @@ class NewMultilinearMap:
 	def encode(self, level, value):
 		return self.mmap.enc(value, level)
 	#
-	def rerand(self, level, value):
+	def rerandomize(self, level, value):
 		assert(level == 1)
 		value.rerand()
 	#
