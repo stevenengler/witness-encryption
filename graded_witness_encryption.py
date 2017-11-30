@@ -3,34 +3,69 @@ import abc
 class GradedEncodingSchemeBase(abc.ABC):
 	@abc.abstractmethod
 	def get_n(self):
+		'''
+		Return the maximum number of multilinear map levels (integer).
+		'''
+		#
 		pass
 	#
 	@abc.abstractmethod
 	def get_lambda(self):
+		'''
+		Return the security parameter (integer).
+		'''
+		#
 		pass
 	#
 	@abc.abstractmethod
 	def copy_encoding(self, value):
+		'''
+		Given an encoding, return a new copy of the encoding with the same value and level.
+		'''
+		#
 		pass
 	#
 	@abc.abstractmethod
 	def sample(self):
+		'''
+		Return a new encoding that is randomly sampled from multilinear map.
+		'''
+		#
 		pass
 	#
 	@abc.abstractmethod
 	def encode(self, level, value):
+		'''
+		Return a new encoding of the given encoding at a new level.
+		'''
+		#
 		pass
 	#
 	@abc.abstractmethod
 	def rerandomize(self, level, value):
+		'''
+		Rerandomize the encoding object in-place. Does not return anything.
+		'''
+		#
 		pass
 	#
 	@abc.abstractmethod
 	def multiply(self, a, b, store_in=None):
+		'''
+		Multiply two given encodings, and return an encoding of the product.
+		If the `store_in` encoding object argument is given, the resulting product will be stored in this encoding object.
+		Otherwise a new encoding object will be generated and the resulting product will be stored in this new encoding object.
+		In either case, the resulting encoding object will be returned.
+		'''
+		#
 		pass
 	#
 	@abc.abstractmethod
 	def extract(self, value):
+		'''
+		Return the extracted value as a string of bits.
+		'''
+		#
 		pass
 	#
 #
