@@ -42,7 +42,11 @@ def _format_key_string(key, bit_length):
 	key = str(int(sign_bit))+key
 	return key.zfill(bit_length)
 #
-def encrypt(mmap_instance, T):
+def encrypt(mmap_instance, exact_cover_collection):
+	'''
+	The mmap instance should be a subclass of the abstract base class 'GradedEncodingSchemeBase'.
+	'''
+	#
 	n = mmap_instance.get_n()
 	lmda = mmap_instance.get_lambda()
 	#
@@ -50,22 +54,20 @@ def encrypt(mmap_instance, T):
 	a_prime = [mmap_instance.encode(1, a[x]) for x in range(n)]
 	ciphertext = []
 	#
-	for i in range(len(T)):
-		for j in range(len(a_prime)):
-			mmap_instance.rerandomize(1, a_prime[j])
+	for exact_cover_subset in exact_cover_collection:
+		for x in a_prime:
+			mmap_instance.rerandomize(1, x)
 		#
-		this_T = T[i]
+		product = mmap_instance.copy_encoding(a_prime[exact_cover_subset[0]])
+		for x in exact_cover_subset[1:]:
+			mmap_instance.multiply(product, a_prime[x], store_in=product)
 		#
-		product = mmap_instance.copy_encoding(a_prime[this_T[0]])
-		for j in range(1, len(this_T)):
-			mmap_instance.multiply(product, a_prime[this_T[j]], store_in=product)
-		#
-		encoded = mmap_instance.encode(len(this_T), product)
+		encoded = mmap_instance.encode(len(exact_cover_subset), product)
 		ciphertext.append(encoded)
 	#
 	product = mmap_instance.copy_encoding(a_prime[0])
-	for i in range(1, n):
-		mmap_instance.multiply(product, a_prime[i], store_in=product)
+	for x in a_prime[1:]:
+		mmap_instance.multiply(product, x, store_in=product)
 	#
 	encoding = mmap_instance.encode(n, product)
 	key = mmap_instance.extract(encoding)
@@ -73,14 +75,18 @@ def encrypt(mmap_instance, T):
 	#
 	return (key, ciphertext)
 #
-def decrypt(mmap_instance, ciphertext, W):
+def decrypt(mmap_instance, ciphertext, witness):
+	'''
+	The mmap instance should be a subclass of the abstract base class 'GradedEncodingSchemeBase'.
+	'''
+	#
 	lmda = mmap_instance.get_lambda()
 	#
-	B = mmap_instance.copy_encoding(ciphertext[W[0]])
-	for i in range(1, len(W)):
-		mmap_instance.multiply(B, ciphertext[W[i]], store_in=B)
+	product = mmap_instance.copy_encoding(ciphertext[witness[0]])
+	for x in witness[1:]:
+		mmap_instance.multiply(product, ciphertext[x], store_in=product)
 	#
-	key_recovered = mmap_instance.extract(B)
+	key_recovered = mmap_instance.extract(product)
 	key_recovered = _format_key_string(key_recovered, lmda)
 	#
 	return key_recovered
