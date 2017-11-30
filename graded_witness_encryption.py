@@ -1,3 +1,39 @@
+import abc
+#
+class GradedEncodingSchemeBase(abc.ABC):
+	@abc.abstractmethod
+	def get_n(self):
+		pass
+	#
+	@abc.abstractmethod
+	def get_lambda(self):
+		pass
+	#
+	@abc.abstractmethod
+	def copy_encoding(self, value):
+		pass
+	#
+	@abc.abstractmethod
+	def sample(self):
+		pass
+	#
+	@abc.abstractmethod
+	def encode(self, level, value):
+		pass
+	#
+	@abc.abstractmethod
+	def rerandomize(self, level, value):
+		pass
+	#
+	@abc.abstractmethod
+	def multiply(self, a, b, store_in=None):
+		pass
+	#
+	@abc.abstractmethod
+	def extract(self, value):
+		pass
+	#
+#
 def _format_key_string(key, bit_length):
 	sign_bit = (key[0] == '-')
 	if sign_bit:

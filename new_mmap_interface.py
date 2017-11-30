@@ -2,7 +2,7 @@ import mmap as mmap_lib
 # be careful here, mmap is already a built-in Python library name
 import graded_witness_encryption
 #
-class NewMultilinearMap:
+class NewMultilinearMap(graded_witness_encryption.GradedEncodingSchemeBase):
 	def __init__(self, lmda, kappa, n, rho, etap):
 		self.mmap = mmap_lib.public_parameters_generate(lmda, kappa, n, rho, etap)
 		self.mmap.generate(False)
