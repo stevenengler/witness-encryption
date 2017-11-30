@@ -1,8 +1,11 @@
 from trivial_ges import TrivialGES
+import sys
 
-n = 5
-l = 50
-print("Instantiating with n = ", n, " lambda = ", l)
+# Testing
+l = int(sys.argv[1])
+n = int(sys.argv[2])
+
+print("Instantiating with lambda = ", l, " n = ", n)
 x = TrivialGES(l, n)
 
 print("n: ", x.get_n())
