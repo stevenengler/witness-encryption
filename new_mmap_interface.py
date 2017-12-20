@@ -1,10 +1,9 @@
-import mmap as mmap_lib
-# be careful here, mmap is already a built-in Python library name
+import newmultimaps
 import graded_witness_encryption
 #
 class NewMultilinearMap(graded_witness_encryption.GradedEncodingSchemeBase):
 	def __init__(self, lmda, kappa, n, rho, etap):
-		self.mmap = mmap_lib.public_parameters_generate(lmda, kappa, n, rho, etap)
+		self.mmap = newmultimaps.public_parameters_generate(lmda, kappa, n, rho, etap)
 		self.mmap.generate(False)
 	#
 	def get_n(self):
@@ -14,10 +13,10 @@ class NewMultilinearMap(graded_witness_encryption.GradedEncodingSchemeBase):
 		return self.mmap.params._lambda
 	#
 	def copy_encoding(self, value):
-		return mmap_lib.encoding(value)
+		return newmultimaps.encoding(value)
 	#
 	def sample(self):
-		samp = mmap_lib.encoding()
+		samp = newmultimaps.encoding()
 		samp.samp(self.mmap, 0)
 		return samp
 	#
@@ -32,12 +31,12 @@ class NewMultilinearMap(graded_witness_encryption.GradedEncodingSchemeBase):
 		if store_in is None:
 			store_in = mmap_lib.encoding()
 		#
-		store_in.set_to(a)
-		store_in.mult_in_place(b)
+		store_in.assign(a)
+		store_in.multiply_assign(b)
 		return store_in
 	#
 	def extract(self, value):
-		return self.mmap.ext_as_str(value, 0)
+		return self.mmap.ext_str(value, 0, 2)
 	#
 #
 if __name__=='__main__':
