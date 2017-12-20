@@ -1,9 +1,9 @@
-from graded_witness_encryption import GradedEncodingSchemeBase
+import graded_witness_encryption
 from random import *
 import copy
 import pickle
 
-class TrivialGES(GradedEncodingSchemeBase):
+class TrivialGES(graded_witness_encryption.GradedEncodingSchemeBase):
     def __init__(self, l, n):
         self.l = l
         self.n = n
@@ -37,5 +37,5 @@ class TrivialGES(GradedEncodingSchemeBase):
         b = pickle.dumps(value)
         if len(b) < self.l:
             b = bytes([0])*(self.l - len(b)) + b
-        return b
+        return str(b)
 
