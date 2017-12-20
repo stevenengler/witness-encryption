@@ -39,3 +39,42 @@ class TrivialGES(graded_witness_encryption.GradedEncodingSchemeBase):
             b = bytes([0])*(self.l - len(b)) + b
         return str(b)
 
+if __name__=='__main__':
+    import ecigen
+    import math
+    #
+    lmda = 400
+    n = 200
+    #
+    #T = [[0,2,4], [0,1], [3,5], [2], [1]]
+    #W = [0, 2, 4]
+    #
+    T, W = ecigen.generate(n, math.ceil(n/2), n*3)
+    T = [[y-1 for y in x] for x in T]
+    #
+    print('----------------------')
+    #
+    pp = TrivialGES(lmda, n)
+    #
+    print('----------------------')
+    #
+    (K, C) = graded_witness_encryption.encrypt(pp, T)
+    #
+    print('K (first 20 bits): {0}...'.format(K[0:20]))
+    print('K length: {0}'.format(len(K)))
+    print('Num of 1 bits: {0}'.format(K.count('1')))
+    #
+    print('----------------------')
+    #
+    K_recovered = graded_witness_encryption.decrypt(pp, C, W)
+    #
+    print('K_recovered (first 20 bits): {0}...'.format(K_recovered[0:20]))
+    print('K_recovered length: {0}'.format(len(K_recovered)))
+    print('Num of 1 bits: {0}'.format(K_recovered.count('1')))
+    #
+    print('----------------------')
+    #
+    print('Keys are the same?: {0}'.format(K_recovered == K))
+    #
+    print('----------------------')
+    print()
