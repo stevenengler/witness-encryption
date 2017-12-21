@@ -1,4 +1,4 @@
-# witness-enc
+# Witness Encryption Implementation
 An (insecure) implementation of witness encryption in Python. The library uses a c++ graded multilinear map library.
 
 The witness encryption implementation follows the design from the paper ("Witness Encryption and its Applications")[https://eprint.iacr.org/2013/258.pdf] by Garg et al.
