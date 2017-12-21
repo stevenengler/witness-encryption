@@ -39,6 +39,39 @@ class NewMultilinearMap(graded_witness_encryption.GradedEncodingSchemeBase):
 		return self.mmap.ext_str(value, 0, 2)
 	#
 #
+def get_public_params(pp, base=16):
+	"""
+	Returns a dictionary of small values (integers) and large
+	values (strings).
+	"""
+	#
+	small_values = {}
+	small_values['n'] = pp.mmap.params.n
+	small_values['rhof'] = pp.mmap.params.rhof
+	small_values['eta'] = pp.mmap.params.eta
+	small_values['etaq'] = pp.mmap.params.etaq
+	small_values['rho'] = pp.mmap.params.rho
+	small_values['alpha'] = pp.mmap.params.alpha
+	small_values['xi'] = pp.mmap.params.xi
+	small_values['beta'] = pp.mmap.params.beta
+	small_values['nu'] = pp.mmap.params.nu
+	small_values['ne'] = pp.mmap.params.ne
+	#
+	large_values = {}
+	large_values['x0p'] = pp.mmap.get_str_x0p(base)
+	large_values['x'] = pp.mmap.get_str_x(base)
+	large_values['pi0'] = pp.mmap.get_str_pi0(base)
+	large_values['pi1'] = pp.mmap.get_str_pi1(base)
+	large_values['y'] = pp.mmap.get_str_y(base)
+	large_values['N'] = pp.mmap.get_str_N(base)
+	large_values['yp'] = pp.mmap.get_str_yp(base)
+	large_values['p_zt'] = pp.mmap.get_str_p_zt(base)
+	#
+	for x in large_values:
+		large_values[x] = {'data':large_values[x], 'base':base}
+	#
+	return {'small_values':small_values, 'large_values':large_values}
+#
 if __name__=='__main__':
 	import ecigen
 	import math
