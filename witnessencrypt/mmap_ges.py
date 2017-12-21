@@ -1,7 +1,7 @@
 import newmultimaps
 import graded_witness_encryption
 #
-class NewMultilinearMap(graded_witness_encryption.GradedEncodingSchemeBase):
+class MMapGES(graded_witness_encryption.GradedEncodingSchemeBase):
 	def __init__(self, lmda, kappa, n, rho, etap):
 		self.mmap = newmultimaps.public_parameters_generate(lmda, kappa, n, rho, etap)
 		self.mmap.generate(False)
@@ -93,7 +93,7 @@ if __name__=='__main__':
 	#
 	print('----------------------')
 	#
-	pp = NewMultilinearMap(lmda_mlm, kappa_mlm, n_mlm, rho_mlm, etap_mlm)
+	pp = MMapGES(lmda_mlm, kappa_mlm, n_mlm, rho_mlm, etap_mlm)
 	#
 	print('----------------------')
 	#

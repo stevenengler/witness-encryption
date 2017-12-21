@@ -2,7 +2,7 @@ import json
 import time
 import math
 #
-import new_mmap_interface
+import mmap_ges
 import graded_witness_encryption
 import trivial_ges
 import ecigen
@@ -10,7 +10,7 @@ import ecigen
 def save_data_newmultimaps(filename, name, pp, arguments, mmap_arguments, T, W, C, K, K_recovered, time_to_generate_map, time_to_encrypt, time_to_decrypt):
 	data = {}
 	data['name'] = name
-	data['public_parameters'] = new_mmap_interface.get_public_params(pp, 16)
+	data['public_parameters'] = mmap_ges.get_public_params(pp, 16)
 	data['arguments'] = arguments
 	data['mmap_arguments'] = mmap_arguments
 	data['T'] = T
@@ -153,7 +153,7 @@ if __name__=='__main__':
 	t = n*3
 	#
 	name1 = 'newmultimaps_lmda-{0}_n-{1}_l-{2}_t-{3}'.format(lmda, n, l, t)
-	run_experiment(name1, lmda, n, l, t, new_mmap_interface.NewMultilinearMap, (lmda_mlm, n_mlm, kappa_mlm, rho_mlm, etap_mlm), save_data_newmultimaps)
+	run_experiment(name1, lmda, n, l, t, mmap_ges.MMapGES, (lmda_mlm, n_mlm, kappa_mlm, rho_mlm, etap_mlm), save_data_newmultimaps)
 	#
 	name2 = 'trivial_lmda-{0}_n-{1}_l-{2}_t-{3}'.format(lmda, n, l, t)
 	run_experiment(name2, lmda, n, l, t, trivial_ges.TrivialGES, (lmda, n), save_data_trivial_ges)

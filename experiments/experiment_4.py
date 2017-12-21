@@ -35,7 +35,7 @@ def import_results(name_prefix, transfer_size_func, time_unit, time_unit_display
 	return {'x':t_vals, 'y':experiments}
 #
 if __name__=='__main__':
-	import new_mmap_interface
+	import mmap_ges
 	import trivial_ges
 	#
 	for mult in [1, 5, 10, 20, 30, 40, 50, 60, 70]:
@@ -53,7 +53,7 @@ if __name__=='__main__':
 			#
 			name_newmultimaps = 'exp4_newmultimaps_lmda-{0}_n-{1}_l-{2}_t-{3}_repeat-{4}'.format(lmda, n, l, t, repeat_count)
 			#
-			experiment_tools.run_experiment(name_newmultimaps, lmda, n, l, t, new_mmap_interface.NewMultilinearMap, (lmda_mlm, n_mlm, kappa_mlm, rho_mlm, etap_mlm), experiment_tools.save_data_newmultimaps)
+			experiment_tools.run_experiment(name_newmultimaps, lmda, n, l, t, mmap_ges.MMapGES, (lmda_mlm, n_mlm, kappa_mlm, rho_mlm, etap_mlm), experiment_tools.save_data_newmultimaps)
 			#
 			name_trivial_ges = 'exp4_trivial_ges_lmda-{0}_n-{1}_l-{2}_t-{3}_repeat-{4}'.format(lmda, n, l, t, repeat_count)
 			#
